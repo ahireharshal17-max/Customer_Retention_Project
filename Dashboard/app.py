@@ -3,7 +3,7 @@ import pandas as pd
 
 st.title("Customer Retention Analysis Dashboard")
 
-df = pd.read_csv("../Data/European_Bank.csv")
+df = pd.read_csv("Data/European_Bank.csv")
 
 st.subheader("Dataset Preview")
 st.dataframe(df.head())
