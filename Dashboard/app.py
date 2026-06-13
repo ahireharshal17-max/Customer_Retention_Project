@@ -30,7 +30,10 @@ st.subheader("Churn by Gender")
 gender = pd.crosstab(df["Gender"], df["Exited"], normalize="index") * 100
 st.bar_chart(gender[1])
 
-st.subheader("Churn by Number of Products")
+st.subheader("Product Utilization Impact Analysis")
+st.write(
+    "Customers with 2 products show the lowest churn rate, while customers with 3 or more products show significantly higher churn."
+)
 products = pd.crosstab(df["NumOfProducts"], df["Exited"], normalize="index") * 100
 st.bar_chart(products[1])
 
@@ -50,3 +53,17 @@ st.dataframe(
         ["CustomerId", "Balance", "EstimatedSalary", "IsActiveMember", "Exited"]
     ].head(10)
 )
+st.subheader("Retention Strength Scoring Panel")
+
+df["RelationshipStrength"] = (
+    df["IsActiveMember"] +
+    (df["NumOfProducts"] >= 2).astype(int)
+)
+
+relationship = pd.crosstab(
+    df["RelationshipStrength"],
+    df["Exited"],
+    normalize="index"
+) * 100
+
+st.bar_chart(relationship[1])
