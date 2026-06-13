@@ -4,6 +4,14 @@ import pandas as pd
 st.title("Customer Retention Analysis Dashboard")
 
 df = pd.read_csv("Data/European_Bank.csv")
+st.sidebar.header("Filters")
+
+balance_threshold = st.sidebar.slider(
+    "Balance Threshold",
+    0,
+    int(df["Balance"].max()),
+    int(df["Balance"].median())
+)
 
 st.subheader("Dataset Preview") 
 st.dataframe(df.head())
@@ -29,7 +37,7 @@ st.bar_chart(products[1])
 st.subheader("Disengaged Yet High-Value Customers")
 
 high_value_customers = df[
-    (df["Balance"] > df["Balance"].median()) &
+    (df["Balance"] > balance_threshold) &
     (df["IsActiveMember"] == 0)
 ]
 
